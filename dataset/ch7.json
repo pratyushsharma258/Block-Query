@@ -1,0 +1,529 @@
+{
+  "qa_pairs": [
+    {
+      "id": 1,
+      "question": "What are the minimum system requirements for running Bitcoin Core?",
+      "answer": "To run Bitcoin Core, you need:\n\n- At least 2GB of RAM (4GB recommended)\n- 500GB of free disk space for full blockchain storage (as of 2024)\n- Broadband internet connection with upload speeds of at least 400 kilobytes per second\n- An unmetered connection or high upload limit\n- Desktop or laptop with Windows 10/11, Mac OS X 10.15+, or Linux\n- Modern processor (2014 or newer)\n\nThese requirements may increase over time as the blockchain grows.",
+      "category": "bitcoin_installation",
+      "difficulty": "basic"
+    },
+    {
+      "id": 2,
+      "question": "What is the difference between bitcoind, bitcoin-cli, and bitcoin-qt?",
+      "answer": "These three are different interfaces to Bitcoin Core:\n\nbitcoind: The core Bitcoin daemon that runs in the background. It handles all the main functionality including maintaining the blockchain, validating transactions, and networking with other nodes.\n\nbitcoin-cli: Command-line interface tool that communicates with bitcoind through RPC. It's used for sending commands and queries to the Bitcoin daemon.\n\nbitcoin-qt: The official Bitcoin Core GUI (Graphical User Interface). It provides a visual interface for common Bitcoin operations and includes an embedded bitcoind.",
+      "category": "bitcoin_clients",
+      "difficulty": "basic"
+    },
+    {
+      "id": 3,
+      "question": "How do you properly configure authentication credentials in bitcoin.conf?",
+      "answer": "To configure authentication credentials in bitcoin.conf:\n\n1. Generate a random username and strong password\n2. Add these lines to bitcoin.conf:\n   rpcuser=your_chosen_username\n   rpcpassword=your_strong_password\n3. Use special characters and sufficient length for the password\n4. Keep backup copies of credentials\n5. Set appropriate file permissions (600 on Unix-like systems)\n\nNever use default or weak credentials, as this could compromise your node security.",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 4,
+      "question": "What are the key differences between running a full node versus a lightweight node?",
+      "answer": "Full nodes and lightweight nodes differ in several key aspects:\n\nFull Nodes:\n- Download and verify the entire blockchain\n- Provide maximum security and privacy\n- Require significant storage (500GB+)\n- Help secure the network\n- Can independently verify all transactions\n\nLightweight Nodes:\n- Only download block headers\n- Rely on full nodes for transaction verification\n- Require minimal storage (few MB)\n- Suitable for mobile devices\n- Trade security for convenience\n\nFull nodes are essential for network decentralization, while lightweight nodes make Bitcoin accessible to more users.",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 5,
+      "question": "How can you use bitcoin-cli to get detailed information about a specific transaction?",
+      "answer": "To get detailed transaction information using bitcoin-cli:\n\n1. First, get the transaction ID\n2. Use the command:\n   bitcoin-cli getrawtransaction \"txid\" true\n\nThis returns detailed information including:\n- Transaction version\n- Locktime\n- Input details (previous outputs spent)\n- Output details (amounts and recipients)\n- Block information\n- Confirmation count\n- Time stamps\n\nAdd verbose=true for human-readable format.",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 6,
+      "question": "What is Regtest mode and how does it differ from Testnet?",
+      "answer": "Regtest (Regression Test) mode is a local testing environment where you have complete control over block generation. Key differences from Testnet:\n\nRegtest:\n- Completely local blockchain\n- Instant block generation on demand\n- No external network connection required\n- Mining difficulty starts very low\n- Perfect for development and testing\n\nTestnet:\n- Public test network\n- Real peer connections\n- Actual mining difficulty (though lower than mainnet)\n- Shared blockchain with other testnet users\n\nRegtest is ideal for development and testing as you have full control over the environment.",
+      "category": "regtest",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 7,
+      "question": "How do you compile Bitcoin Core from source code on Linux?",
+      "answer": "To compile Bitcoin Core from source on Linux:\n\n1. Install dependencies:\n   sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev\n\n2. Clone the repository:\n   git clone https://github.com/bitcoin/bitcoin.git\n   cd bitcoin\n\n3. Install BerkeleyDB:\n   ./contrib/install_db4.sh `pwd`\n\n4. Configure with BerkeleyDB:\n   export BDB_PREFIX='/path/to/bitcoin/db4'\n   ./autogen.sh\n   ./configure BDB_LIBS=\"-L${BDB_PREFIX}/lib -ldb_cxx-4.8\" BDB_CFLAGS=\"-I${BDB_PREFIX}/include\"\n\n5. Compile:\n   make\n   sudo make install\n\nThis process can take 30-60 minutes depending on your system.",
+      "category": "source_code",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 8,
+      "question": "What are the main configuration options in bitcoin.conf for optimizing memory usage?",
+      "answer": "Key memory optimization options in bitcoin.conf:\n\ndbcache=<n> : Sets database cache size in MB\nmaxmempool=<n> : Limits memory pool size in MB\nmaxconnections=<n> : Limits number of network connections\nprune=<n> : Enables blockchain pruning (in MB)\n\nRecommended settings for 8GB RAM:\ndbcache=4096\nmaxmempool=300\nmaxconnections=40\n\nFor 16GB RAM:\ndbcache=8192\nmaxmempool=600\nmaxconnections=125",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 9,
+      "question": "What is the default data directory location for Bitcoin Core on different operating systems?",
+      "answer": "Default Bitcoin data directory locations:\n\nWindows: %APPDATA%\\Bitcoin\n(typically C:\\Users\\YourUsername\\AppData\\Roaming\\Bitcoin)\n\nMacOS: ~/Library/Application Support/Bitcoin/\n\nLinux: ~/.bitcoin/",
+      "category": "bitcoin_installation",
+      "difficulty": "basic"
+    },
+    {
+      "id": 10,
+      "question": "How can you use bitcoin-cli to generate new blocks in Regtest mode?",
+      "answer": "bitcoin-cli -regtest generatetoaddress <number_of_blocks> <address>\n\nExample:\n1. Get a new address:\n   bitcoin-cli -regtest getnewaddress\n\n2. Generate 101 blocks to this address:\n   bitcoin-cli -regtest generatetoaddress 101 \"your_address\"\n\nThe first 100 blocks are required for coinbase maturity before you can spend the mining rewards.",
+      "category": "regtest",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 11,
+      "question": "What are the advantages of running your own Bitcoin full node?",
+      "answer": "Running a Bitcoin full node offers several key benefits:\n\n1. Network Security:\n- Helps validate and relay transactions\n- Contributes to network decentralization\n- Strengthens Bitcoin's consensus mechanisms\n\n2. Privacy:\n- No need to rely on third-party servers\n- Direct verification of transactions\n- Better control over your financial data\n\n3. Trust Minimization:\n- Independent verification of all transactions\n- No need to trust external services\n- Direct participation in consensus rules\n\n4. Network Services:\n- Ability to run Lightning Network nodes\n- Support for other layer-2 solutions\n- Capability to serve lightweight clients",
+      "category": "bitcoin_node",
+      "difficulty": "basic"
+    },
+    {
+      "id": 12,
+      "question": "How do you safely upgrade Bitcoin Core to a new version?",
+      "answer": "1. Backup your wallet.dat file and bitcoin.conf\n2. Stop the currently running Bitcoin Core process\n3. Download the new version from bitcoin.org\n4. Verify the signatures and checksums\n5. Install the new version\n6. Start Bitcoin Core and verify it's running correctly\n7. Check debug.log for any errors\n\nNote: Always read the release notes for breaking changes and new features before upgrading.",
+      "category": "bitcoin_installation",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 13,
+      "question": "What is the purpose of the 'txindex' configuration option in bitcoin.conf?",
+      "answer": "The 'txindex' option in bitcoin.conf maintains an index of all transactions, not just those relevant to your wallet. When set to 1:\n\n- Enables lookup of any transaction by its ID\n- Required for certain blockchain exploration tools\n- Necessary for running an Electrum server\n- Increases disk space requirements\n- Slightly increases initial sync time\n\nWithout txindex, you can only query transactions related to your wallet addresses.",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 14,
+      "question": "How can you use bitcoin-cli to create and sign a raw transaction?",
+      "answer": "Creating and signing a raw transaction with bitcoin-cli involves several steps:\n\n1. List unspent outputs:\n   bitcoin-cli listunspent\n\n2. Create raw transaction:\n   bitcoin-cli createrawtransaction '[{\"txid\":\"ID\",\"vout\":0}]' '{\"address\":amount}'\n\n3. Sign the transaction:\n   bitcoin-cli signrawtransactionwithwallet \"hex_string\"\n\n4. Verify the transaction:\n   bitcoin-cli decoderawtransaction \"signed_hex\"\n\n5. Broadcast if satisfied:\n   bitcoin-cli sendrawtransaction \"signed_hex\"\n\nEnsure you understand the process fully before sending real transactions.",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 15,
+      "question": "What is the difference between pruned and unpruned nodes?",
+      "answer": "Pruned and unpruned nodes differ in how they store blockchain data:\n\nUnpruned Nodes:\n- Store the complete blockchain\n- Require 500GB+ storage\n- Can serve historical blocks to other nodes\n- Provide full blockchain validation\n\nPruned Nodes:\n- Store only recent blocks\n- Require as little as 2GB storage\n- Cannot serve historical blocks\n- Still provide full validation\n\nBoth types fully validate all transactions, but pruned nodes delete old blocks after validation.",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 16,
+      "question": "How do you configure Bitcoin Core to accept incoming connections through a firewall?",
+      "answer": "To accept incoming connections:\n\n1. Add to bitcoin.conf:\n   listen=1\n   port=8333\n\n2. Configure firewall:\n   - Open TCP port 8333\n   - Allow inbound connections\n   - Forward port 8333 if behind NAT\n\n3. Verify configuration:\n   bitcoin-cli getnetworkinfo\n\n4. Check connections:\n   bitcoin-cli getpeerinfo\n\nFor Testnet, use port 18333 instead of 8333.",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 17,
+      "question": "What are the main differences between mainnet, testnet, and regtest in terms of resource requirements?",
+      "answer": "Resource requirements vary across networks:\n\nMainnet:\n- 500GB+ disk space\n- 2GB+ RAM minimum\n- High bandwidth usage\n- Real Bitcoin transactions\n\nTestnet:\n- ~40GB disk space\n- 1GB+ RAM\n- Moderate bandwidth\n- Test coins only\n\nRegtest:\n- Minimal disk space (<1GB)\n- 512MB RAM sufficient\n- No external bandwidth needed\n- Local test environment\n\nChoose based on your development and testing needs.",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 18,
+      "question": "How can you use bitcoin-cli to monitor network activity and peer connections?",
+      "answer": "Key commands for monitoring network activity:\n\n1. View network info:\n   bitcoin-cli getnetworkinfo\n\n2. List peer connections:\n   bitcoin-cli getpeerinfo\n\n3. View network statistics:\n   bitcoin-cli getnettotals\n\n4. Check sync status:\n   bitcoin-cli getblockchaininfo\n\nThese commands provide details about:\n- Connected peers\n- Bandwidth usage\n- Network protocol versions\n- Sync progress\n- Connection types (inbound/outbound)",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 19,
+      "question": "What is the significance of the 'assumevalid' parameter in bitcoin.conf?",
+      "answer": "The 'assumevalid' parameter sets a block hash before which blocks are assumed valid:\n\n- Speeds up initial blockchain download\n- Skips signature verification for historical blocks\n- Updated with each Bitcoin Core release\n- Can be disabled by setting to 0\n\nImportant considerations:\n- Doesn't compromise security for current transactions\n- Still downloads and verifies all blocks\n- Only affects historical signature verification\n- Recommended for faster initial sync",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 20,
+      "question": "How do you properly shut down a Bitcoin node and what happens if it's not done correctly?",
+      "answer": "Proper node shutdown:\n\n1. Using bitcoin-cli:\n   bitcoin-cli stop\n\n2. Using bitcoin-qt:\n   File -> Exit\n\nImproper shutdown risks:\n- Database corruption\n- Incomplete writes to chainstate\n- Loss of recent transactions\n- Longer startup time next boot\n\nAlways wait for shutdown to complete before cutting power.",
+      "category": "bitcoin_node",
+      "difficulty": "basic"
+    },
+    {
+      "id": 21,
+      "question": "What are the steps to implement a watch-only wallet using Bitcoin Core?",
+      "answer": "Implementing a watch-only wallet:\n\n1. Create new wallet:\n   bitcoin-cli createwallet \"watch_wallet\" true\n\n2. Import addresses:\n   bitcoin-cli -rpcwallet=\"watch_wallet\" importaddress \"address\" \"label\" false\n\n3. Import public keys:\n   bitcoin-cli -rpcwallet=\"watch_wallet\" importpubkey \"pubkey\"\n\n4. Import scripts:\n   bitcoin-cli -rpcwallet=\"watch_wallet\" importmulti '[{\"desc\":\"descriptor\",\"timestamp\":\"now\"}]'\n\nWatch-only wallets can monitor but not spend funds.",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 22,
+      "question": "How can you verify that your Bitcoin Core binary hasn't been tampered with?",
+      "answer": "To verify Bitcoin Core binary integrity:\n\n1. Download release signatures:\n   - Binary file\n   - SHA256SUMS file\n   - SHA256SUMS.asc file\n\n2. Verify checksum:\n   sha256sum -c SHA256SUMS\n\n3. Import core developer GPG keys\n\n4. Verify signatures:\n   gpg --verify SHA256SUMS.asc\n\nThis ensures the binary matches official releases.",
+      "category": "bitcoin_installation",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 23,
+      "question": "What are the main differences between running Bitcoin Core on Windows versus Linux?",
+      "answer": "Key differences between platforms:\n\nWindows:\n- Easy GUI installation\n- Automatic service management\n- Limited command-line tools\n- System resource overhead\n\nLinux:\n- Better performance\n- More configuration options\n- Enhanced security\n- Better scripting support\n- Lower resource usage\n\nBoth platforms provide full node functionality but Linux is preferred for servers.",
+      "category": "bitcoin_installation",
+      "difficulty": "basic"
+    },
+    {
+      "id": 24,
+      "question": "How do you implement multisig wallet functionality using bitcoin-cli?",
+      "answer": "Implementing multisig with bitcoin-cli:\n\n1. Generate addresses for each party:\n   bitcoin-cli getnewaddress \"label\" \"legacy\"\n\n2. Get public keys:\n   bitcoin-cli getaddressinfo \"address\"\n\n3. Create multisig address:\n   bitcoin-cli createmultisig 2 '[\"pubkey1\",\"pubkey2\",\"pubkey3\"]'\n\n4. Import address:\n   bitcoin-cli importaddress \"multisig_address\"\n\n5. Create and sign transactions:\n   - Create raw transaction\n   - Sign with required keys\n   - Combine signatures\n\nRequires coordination between parties for signatures.",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 25,
+      "question": "What is the purpose of the debug.log file and how can it be used for troubleshooting?",
+      "answer": "debug.log provides detailed information about node operation:\n\n- Located in the data directory\n- Contains error messages\n- Shows network activity\n- Records startup/shutdown events\n- Lists peer connections\n\nUseful for:\n- Diagnosing sync issues\n- Tracking network problems\n- Monitoring node performance\n- Investigating crashes\n\nUse 'debug=category' in bitcoin.conf to adjust logging detail.",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 26,
+      "question": "How do you use bitcoin-cli to query information about memory pool transactions?",
+      "answer": "Query mempool information using:\n\n1. Basic mempool info:\n   bitcoin-cli getmempoolinfo\n\n2. List transactions:\n   bitcoin-cli getrawmempool\n\n3. Detailed transaction info:\n   bitcoin-cli getmempoolentry \"txid\"\n\n4. Memory pool ancestors:\n   bitcoin-cli getmempoolancestors \"txid\"\n\nProvides details about:\n- Unconfirmed transactions\n- Fee rates\n- Transaction relationships\n- Memory usage",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 27,
+      "question": "What are the key considerations when setting up a Bitcoin node in a Docker container?",
+      "answer": "Docker setup considerations:\n\n1. Volume Management:\n- Mount data directory externally\n- Preserve blockchain data\n- Handle wallet backups\n\n2. Networking:\n- Port mapping (8333)\n- Network mode selection\n- Inter-container communication\n\n3. Resource Limits:\n- Memory constraints\n- CPU allocation\n- Storage requirements\n\n4. Security:\n- Container isolation\n- RPC authentication\n- Network security\n\nUse official Bitcoin Core Docker images when possible.",
+      "category": "bitcoin_installation",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 28,
+      "question": "How do you configure Bitcoin Core to use Tor for enhanced privacy?",
+      "answer": "Configuring Bitcoin Core with Tor:\n\n1. Install Tor\n\n2. Add to bitcoin.conf:\n   proxy=127.0.0.1:9050\n   listen=1\n   bind=127.0.0.1\n   onlynet=onion\n\n3. Optional settings:\n   discoverhostname=1\n   torcontrol=127.0.0.1:9051\n   torpassword=mypassword\n\nThis routes all Bitcoin traffic through Tor for improved privacy.",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 29,
+      "question": "What are the main differences between SPV and full node synchronization?",
+      "answer": "SPV vs Full Node sync:\n\nSPV (Simplified Payment Verification):\n- Downloads only headers\n- Faster initial sync\n- Minimal storage needs\n- Relies on full nodes\n- Less privacy\n\nFull Node:\n- Downloads all blocks\n- Slower initial sync\n- High storage requirements\n- Independent verification\n- Better privacy\n\nSPV trades security for convenience.",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 30,
+      "question": "How do you use bitcoin-cli to create and manage multiple wallets?",
+      "answer": "Multiple wallet management:\n\n1. Create new wallets:\n   bitcoin-cli createwallet \"wallet_name\"\n\n2. List available wallets:\n   bitcoin-cli listwallets\n\n3. Load wallet:\n   bitcoin-cli loadwallet \"wallet_name\"\n\n4. Set default wallet:\n   bitcoin-cli -rpcwallet=\"wallet_name\"\n\n5. Unload wallet:\n   bitcoin-cli unloadwallet \"wallet_name\"\n\nEach wallet has separate addresses and transactions.",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 31,
+      "question": "What is the significance of the 'maxuploadtarget' parameter in bitcoin.conf?",
+      "answer": "maxuploadtarget parameter:\n\n- Limits daily upload bandwidth\n- Measured in MiB per day\n- Helps manage data costs\n- Affects block serving\n- Doesn't limit protocol messages\n\nConsiderations:\n- Set to 0 for unlimited\n- May impact network contribution\n- Resets at midnight UTC\n- Excludes whitelisted peers\n\nUseful for connections with data caps.",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 32,
+      "question": "Explain in detail how Bitcoin Core's UTXO set management works and its importance for node operation.",
+      "answer": "Bitcoin Core's UTXO (Unspent Transaction Output) set management is a critical component of node operation that directly impacts performance and reliability. Here's a comprehensive breakdown:\n\n1. UTXO Set Purpose:\n- Maintains database of all spendable outputs\n- Enables quick transaction verification\n- Critical for mempool acceptance\n- Essential for wallet functionality\n\n2. Technical Implementation:\n- Stored in LevelDB database\n- Located in chainstate directory\n- Uses compact serialization format\n- Implements memory-efficient caching\n\n3. Memory Management:\n- Controlled by dbcache parameter\n- Default cache size is 450MB\n- Dynamically allocated between:\n  * UTXO cache\n  * Block index cache\n  * Transaction verification cache\n\n4. Performance Implications:\n- Larger cache improves validation speed\n- Affects initial block download\n- Impacts transaction verification\n- Influences mempool acceptance\n\n5. Maintenance Operations:\n- Automatic pruning of spent outputs\n- Database compaction when needed\n- Index rebuilding capabilities\n- Consistency checks during startup\n\n6. Best Practices:\n- Allocate sufficient dbcache\n- Regular backups of chainstate\n- Monitor database size growth\n- Implement appropriate disk I/O\n\n7. Common Issues and Solutions:\n- Database corruption: Requires reindex\n- High disk I/O: Increase cache size\n- Slow validation: Optimize cache allocation\n- Consistency errors: Verify filesystem integrity",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 33,
+      "question": "What is the proper way to handle wallet backup and restoration in Bitcoin Core?",
+      "answer": "Proper wallet backup and restoration involves several critical steps and considerations:\n\n1. Backup Procedures:\n\nA. Creating Backups:\n- Use 'backupwallet' command:\n  bitcoin-cli backupwallet \"backup_path\"\n- Backup wallet.dat file directly\n- Enable automatic backups in bitcoin.conf:\n  walletbackupsdir=/backup/path\n\nB. Timing Considerations:\n- After new key generation\n- Before major operations\n- On regular schedule (daily/weekly)\n- Before software updates\n\n2. Backup Security:\n\nA. Storage Requirements:\n- Multiple physical locations\n- Encrypted storage media\n- Write-protected copies\n- Offline backup sets\n\nB. Security Measures:\n- Encrypt backup files\n- Use strong passwords\n- Implement access controls\n- Regular integrity checks\n\n3. Restoration Process:\n\nA. Preparation:\n- Stop Bitcoin Core\n- Secure original wallet.dat\n- Verify backup integrity\n- Prepare recovery environment\n\nB. Execution:\n- Replace wallet.dat\n- Start Bitcoin Core\n- Run rescan if needed:\n  bitcoin-cli rescanblockchain\n- Verify wallet contents\n\n4. Best Practices:\n\nA. Documentation:\n- Record backup dates/locations\n- Document encryption details\n- Maintain restoration procedures\n- Log backup verifications\n\nB. Testing:\n- Regular restore testing\n- Verify backup integrity\n- Practice recovery procedures\n- Document test results\n\n5. Common Pitfalls to Avoid:\n- Storing backups only locally\n- Neglecting encryption\n- Infrequent backups\n- Untested backup sets\n- Incomplete documentation",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 34,
+      "question": "How do you optimize Bitcoin Core for running on a low-resource system like a Raspberry Pi?",
+      "answer": "Optimizing Bitcoin Core for Raspberry Pi requires careful configuration:\n\n1. bitcoin.conf settings:\n   dbcache=100\n   maxmempool=50\n   maxconnections=20\n   prune=550\n   minrelaytxfee=0.0001\n\n2. System optimization:\n- Use external SSD\n- Increase swap space\n- Disable GUI\n- Enable overlayfs\n\n3. Monitor resource usage:\n- Check CPU temperature\n- Monitor memory usage\n- Track disk I/O\n- Observe network bandwidth",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 35,
+      "question": "What's the process for implementing a secure RPC connection over SSL/TLS in Bitcoin Core?",
+      "answer": "Implementing secure RPC over SSL/TLS:\n\n1. Generate SSL certificates:\n   openssl req -x509 -newkey rsa:4096 -nodes \\\n   -keyout server.key -out server.crt -days 365\n\n2. Configure bitcoin.conf:\n   rpcssl=1\n   rpcsslcertificatechainfile=server.crt\n   rpcsslprivatekeyfile=server.key\n\n3. Set proper permissions:\n   chmod 600 server.key\n   chmod 644 server.crt\n\n4. Restart Bitcoin Core\n\nEnsure proper certificate management and renewal.",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 36,
+      "question": "How can you use bitcoin-cli to analyze block reward halving impacts?",
+      "answer": "Block reward analysis commands:\n\n1. Get block subsidy:\n   bitcoin-cli getblocksubsidy\n\n2. Calculate halving height:\n   bitcoin-cli getblockchaininfo\n\n3. Examine block rewards:\n   bitcoin-cli getblock \"blockhash\" 2\n\n4. Compare mining revenue:\n   bitcoin-cli gettxoutsetinfo\n\nUse these to track reward changes over time.",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 37,
+      "question": "What are the different ways to interact with the Bitcoin network through the JSON-RPC interface?",
+      "answer": "JSON-RPC interaction methods:\n\n1. Direct bitcoin-cli:\n   bitcoin-cli command [parameters]\n\n2. curl requests:\n   curl --user user:pass --data-binary '{\"method\":\"command\"}' http://127.0.0.1:8332\n\n3. Programming languages:\n- Python (bitcoin-rpc)\n- Node.js (bitcoin-core)\n- Java (bitcoinj)\n\n4. Third-party tools:\n- Postman\n- BitcoinJ\n- Bitcoin-QT Debug Console",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 38,
+      "question": "Explain the complete process of compiling Bitcoin Core from source code, including all dependencies and potential issues.",
+      "answer": "Compiling Bitcoin Core from source involves multiple stages and considerations:\n\n1. System Preparation:\n\nA. Install Basic Dependencies:\n```bash\nsudo apt-get update\nsudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libevent-dev\n```\n\nB. Install Boost Libraries:\n```bash\nsudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev\n```\n\n2. Database Installation:\n\nA. Berkeley DB 4.8:\n```bash\n./contrib/install_db4.sh `pwd`\nexport BDB_PREFIX=\"$PWD/db4\"\n```\n\nB. Optional Dependencies:\n- QT for GUI\n- ZMQ for notifications\n- SQLite for descriptor wallets\n\n3. Source Compilation:\n\nA. Get Source Code:\n```bash\ngit clone https://github.com/bitcoin/bitcoin.git\ncd bitcoin\ngit checkout v24.0.1 # or latest version\n```\n\nB. Build Process:\n```bash\n./autogen.sh\n./configure BDB_LIBS=\"-L${BDB_PREFIX}/lib -ldb_cxx-4.8\" BDB_CFLAGS=\"-I${BDB_PREFIX}/include\"\nmake -j$(nproc)\n```\n\n4. Common Issues and Solutions:\n\nA. Memory Problems:\n- Use swap space for low RAM\n- Reduce make job count\n- Close memory-intensive applications\n\nB. Dependency Issues:\n- Version mismatches\n- Missing libraries\n- Incompatible toolchains\n\n5. Installation and Testing:\n\nA. Install Binaries:\n```bash\nsudo make install\n```\n\nB. Verification:\n- Run unit tests\n- Check version information\n- Verify binary signatures\n\n6. Post-Installation:\n\nA. Configuration:\n- Set up bitcoin.conf\n- Configure data directory\n- Set proper permissions\n\nB. Maintenance:\n- Document build options\n- Save build logs\n- Maintain source code updates",
+      "category": "source_code",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 39,
+      "question": "What are the key differences between various Bitcoin Core wallet types (legacy, descriptor, watch-only)?",
+      "answer": "Bitcoin Core supports multiple wallet types:\n\nLegacy Wallets:\n- Traditional format\n- Uses keypool\n- Limited scripting\n- Compatible with old versions\n\nDescriptor Wallets:\n- Modern format\n- Enhanced scripting\n- Better key management\n- Improved backup options\n\nWatch-Only:\n- No private keys\n- Monitor only\n- Requires public keys\n- Useful for cold storage",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 40,
+      "question": "How do you implement and manage Bitcoin Core scheduled backups using cron jobs?",
+      "answer": "Implementing scheduled backups:\n\n1. Create backup script:\n```bash\n#!/bin/bash\nDATE=$(date +%Y%m%d)\nbitcoin-cli backupwallet \"/backup/wallet_$DATE.dat\"\n```\n\n2. Add cron job:\n0 0 * * * /path/to/backup_script.sh\n\n3. Rotate old backups:\nfind /backup/ -mtime +30 -delete\n\n4. Monitor backup success via logs",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 41,
+      "question": "What are the best practices for securing a Bitcoin Core installation against various attack vectors?",
+      "answer": "Comprehensive security best practices for Bitcoin Core:\n\n1. System Security:\n\nA. Operating System:\n- Regular updates\n- Minimal services running\n- Firewall configuration\n- SELinux/AppArmor profiles\n\nB. Access Control:\n- Limited user accounts\n- Strict file permissions\n- SSH key-based authentication\n- No root login\n\n2. Bitcoin Core Configuration:\n\nA. Network Security:\n- Bind to specific interfaces\n- Use allowip restrictions\n- Enable onion routing\n- Implement connection limits\n\nB. RPC Security:\n- Strong authentication\n- SSL/TLS encryption\n- IP restrictions\n- Limited RPC commands\n\n3. Wallet Protection:\n\nA. Encryption:\n- Strong wallet encryption\n- Secure key storage\n- Regular backups\n- Off-site copies\n\nB. Access Management:\n- Separate wallets by purpose\n- Watch-only configurations\n- Multi-signature setups\n- Hardware wallet integration\n\n4. Network Hardening:\n\nA. Peer Management:\n- Whitelist trusted peers\n- Ban suspicious IPs\n- Monitor connections\n- Rate limiting\n\nB. Traffic Control:\n- Bandwidth limits\n- Connection restrictions\n- DNS seed filtering\n- Tor integration\n\n5. Monitoring and Maintenance:\n\nA. System Monitoring:\n- Resource usage alerts\n- Network traffic analysis\n- Disk space monitoring\n- Temperature monitoring\n\nB. Security Auditing:\n- Regular log review\n- Integrity checking\n- Penetration testing\n- Update management",
+      "category": "bitcoin_installation",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 42,
+      "question": "How do you handle chain reorganizations and forks using bitcoin-cli?",
+      "answer": "Managing chain reorganizations:\n\n1. Monitor for reorgs:\n   bitcoin-cli getchaintips\n\n2. Check fork status:\n   bitcoin-cli getblockchaininfo\n\n3. Analyze invalid blocks:\n   bitcoin-cli getblock \"blockhash\"\n\n4. Wait for consensus:\n   Monitor network responses\n\nRequires careful transaction handling during reorgs.",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 43,
+      "question": "What's the difference between bitcoind's 'blocksonly' mode and regular operation?",
+      "answer": "blocksonly mode differences:\n\nRegular Operation:\n- Relays all transactions\n- Higher bandwidth usage\n- Full mempool functionality\n- Normal fee estimation\n\nBlocksonly Mode:\n- Relays only blocks\n- Reduced bandwidth\n- Limited mempool\n- No fee estimation\n\nUseful for bandwidth-constrained nodes.",
+      "category": "configuration",
+      "difficulty": "basic"
+    },
+    {
+      "id": 44,
+      "question": "How can you use bitcoin-cli to implement a basic blockchain explorer?",
+      "answer": "Basic explorer implementation:\n\n1. Get block information:\n   bitcoin-cli getblock \"blockhash\"\n\n2. Get transaction details:\n   bitcoin-cli getrawtransaction \"txid\" true\n\n3. Get address information:\n   bitcoin-cli getaddressinfo \"address\"\n\n4. Chain navigation:\n   Use prevblock and nextblock hashes\n\nRequires txindex=1 in bitcoin.conf",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 45,
+      "question": "What are the different options for Bitcoin Core log management and rotation?",
+      "answer": "Log management options:\n\n1. bitcoin.conf settings:\n   debug=category\n   debuglogfile=/path/to/debug.log\n   shrinkdebugfile=1\n\n2. Log rotation tools:\n   logrotate configuration\n   timestamp-based rotation\n   size-based rotation\n\n3. Monitor log growth\n\n4. Archive old logs",
+      "category": "configuration",
+      "difficulty": "basic"
+    },
+    {
+      "id": 46,
+      "question": "Explain how to implement a cold storage solution using Bitcoin Core.",
+      "answer": "Cold storage implementation steps:\n\n1. Offline Setup:\n- Air-gapped computer\n- Clean OS installation\n- Bitcoin Core offline\n\n2. Key Generation:\n- Create offline wallet\n- Backup private keys\n- Generate addresses\n\n3. Watch-Only Wallet:\n- Export public keys\n- Import to online node\n- Monitor transactions\n\n4. Security measures:\n- Physical security\n- Encryption\n- Redundant backups",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 46,
+      "question": "How do you implement rate limiting and connection throttling in Bitcoin Core?",
+      "answer": "Implementing rate limiting and connection throttling:\n\n1. Network Restrictions:\n\nA. Connection Limits:\n- maxconnections=<n>\n- maxuploadtarget=<n>\n- maxreceivebuffer=<n>\n- maxsendbuffer=<n>\n\nB. Bandwidth Control:\n- maxuploadtarget (MiB/day)\n- minrelaytxfee=<n>\n- incrementalrelayfee=<n>\n\n2. Peer Management:\n\nA. Connection Types:\n- maxoutboundconnections=<n>\n- maxinboundconnections=<n>\n- addnode=<ip>\n- connect=<ip>\n\nB. Priority Controls:\n- whitelist=<ip>\n- whitebind=<addr>\n\n3. Resource Protection:\n\nA. Memory Limits:\n- maxmempool=<n>\n- mempoolexpiry=<n>\n- limitfreerelay=<n>\n\nB. CPU Protection:\n- par=<n>\n- rpcthreads=<n>\n\n4. Implementation Example:\n```\n# bitcoin.conf\nmaxconnections=40\nmaxuploadtarget=1000\nmaxmempool=300\nminrelaytxfee=0.00001\nwhitelist=192.168.1.0/24\n```",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 47,
+      "question": "What are the steps to configure Bitcoin Core for optimal performance in a high-traffic environment?",
+      "answer": "High-traffic optimization configuration:\n\n1. System Requirements:\n- 16GB+ RAM\n- SSD storage\n- High bandwidth connection\n- Multi-core processor\n\n2. bitcoin.conf settings:\n- dbcache=8192\n- maxmempool=2000\n- maxconnections=125\n- maxuploadtarget=5000\n\n3. OS optimization:\n- Increase open files limit\n- Optimize TCP settings\n- Configure swap space\n- Set process priorities",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 48,
+      "question": "How do you use bitcoin-cli to implement a simple address monitoring system?",
+      "answer": "Address monitoring implementation:\n\n1. Import addresses:\n   bitcoin-cli importaddress \"address\" \"label\" false true\n\n2. Check transactions:\n   bitcoin-cli listtransactions \"label\" 100\n\n3. Monitor updates:\n   bitcoin-cli listsinceblock \"blockhash\"\n\n4. Set up notifications:\n   Use -walletnotify and -blocknotify",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 49,
+      "question": "What considerations should be taken into account when upgrading a Bitcoin Core node in a production environment?",
+      "answer": "Production upgrade considerations:\n\n1. Pre-upgrade:\n- Backup all data\n- Document configuration\n- Test on staging\n- Plan downtime\n\n2. During upgrade:\n- Follow release notes\n- Verify signatures\n- Monitor progress\n- Keep logs\n\n3. Post-upgrade:\n- Verify functionality\n- Check compatibility\n- Update documentation\n- Monitor performance",
+      "category": "bitcoin_installation",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 50,
+      "question": "Explain the complete process of setting up and managing a testing environment using Bitcoin Core's Regtest mode.",
+      "answer": "Setting up a Regtest environment requires several steps:\n\n1. Initial Configuration:\n\nA. bitcoin.conf setup:\n```\nregtest=1\nrpcuser=testuser\nrpcpassword=testpass\ndnsseed=0\nupnp=0\nlistenonion=0\n```\n\nB. Directory Structure:\n- Create separate data directory\n- Set up test wallets\n- Configure logging\n\n2. Network Management:\n\nA. Starting the Network:\n```bash\nbitcoind -regtest -daemon\nbitcoin-cli -regtest getblockchaininfo\n```\n\nB. Creating Test Conditions:\n- Generate blocks on demand\n- Create test transactions\n- Simulate network conditions\n\n3. Testing Scenarios:\n\nA. Basic Operations:\n- Block generation\n- Transaction creation\n- Network simulation\n- Chain reorganization\n\nB. Advanced Testing:\n- Multi-node setup\n- Custom scripts\n- Automated testing\n- Error conditions\n\n4. Test Data Management:\n\nA. Data Generation:\n- Create test addresses\n- Generate test transactions\n- Simulate different scenarios\n\nB. Clean-up Procedures:\n- Reset blockchain\n- Clear mempool\n- Remove test wallets\n\n5. Common Testing Patterns:\n\nA. Transaction Testing:\n- Different transaction types\n- Fee calculations\n- Confirmation monitoring\n\nB. Block Testing:\n- Different block sizes\n- Block timing\n- Chain splits\n\n6. Automation and Integration:\n\nA. Script Development:\n- Test frameworks\n- Automated scenarios\n- Results verification\n\nB. CI/CD Integration:\n- Jenkins integration\n- Automated testing\n- Result reporting",
+      "category": "regtest",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 51,
+      "question": "What are the key differences between various Bitcoin Core network types and their use cases?",
+      "answer": "Bitcoin Core network types compared:\n\n1. Mainnet:\n- Live Bitcoin network\n- Real transactions\n- Full security\n- High resource needs\n\n2. Testnet:\n- Public test network\n- Test coins only\n- Moderate resources\n- Real network conditions\n\n3. Regtest:\n- Private testing\n- Instant mining\n- Minimal resources\n- Complete control\n\n4. Signet:\n- Controlled test network\n- Coordinated blocks\n- Low resources\n- Predictable behavior",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 52,
+      "question": "How do you implement and manage multiple Bitcoin Core instances on a single machine?",
+      "answer": "Managing multiple instances:\n\n1. Configuration:\n- Separate data directories\n- Different ports\n- Unique RPC credentials\n- Custom config files\n\n2. Resource allocation:\n- Memory limits\n- CPU affinity\n- Disk space\n- Network bandwidth\n\n3. Process management:\n- Systemd services\n- Start/stop scripts\n- Monitoring tools\n- Log separation",
+      "category": "bitcoin_installation",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 53,
+      "question": "What are the steps to implement a robust backup strategy for a Bitcoin Core node?",
+      "answer": "Comprehensive backup strategy implementation:\n\n1. Data Categories to Backup:\n\nA. Critical Files:\n- wallet.dat\n- bitcoin.conf\n- debug.log\n- mempool.dat\n\nB. Optional Data:\n- peers.dat\n- banlist.dat\n- fee_estimates.dat\n\n2. Backup Methods:\n\nA. Hot Backup:\n```bash\nbitcoin-cli backupwallet /backup/wallet.dat\nbitcoin-cli dumpwallet /backup/keys.txt\n```\n\nB. Cold Storage:\n- Offline copies\n- Hardware wallets\n- Paper backups\n\n3. Automation:\n\nA. Scheduled Backups:\n```bash\n#!/bin/bash\nDATE=$(date +%Y%m%d)\nBACKUP_DIR=\"/backup/bitcoin\"\n\n# Stop Bitcoin daemon\nbitcoin-cli stop\n\n# Wait for shutdown\nsleep 60\n\n# Create backup\ntar -czf \"$BACKUP_DIR/bitcoin_backup_$DATE.tar.gz\" /path/to/.bitcoin/\n\n# Restart daemon\nbitcoind\n```\n\nB. Monitoring:\n- Verify backup completion\n- Check backup integrity\n- Monitor backup size\n- Alert on failures\n\n4. Security Measures:\n\nA. Encryption:\n- GPG encryption\n- Disk encryption\n- Secure transport\n\nB. Access Control:\n- Restricted permissions\n- Secure storage\n- Access logging\n\n5. Recovery Testing:\n\nA. Regular Tests:\n- Restore procedures\n- Verification steps\n- Documentation updates\n\nB. Emergency Procedures:\n- Quick recovery steps\n- Alternative methods\n- Contact information",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 54,
+      "question": "How do you use bitcoin-cli to implement a basic block explorer functionality?",
+      "answer": "Block explorer implementation:\n\n1. Get block info:\n   bitcoin-cli getblock \"hash\" 2\n\n2. List transactions:\n   bitcoin-cli listtransactions \"*\" 10\n\n3. Get address details:\n   bitcoin-cli getaddressinfo \"address\"\n\n4. Monitor mempool:\n   bitcoin-cli getmempoolinfo",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 55,
+      "question": "What are the best practices for managing Bitcoin Core wallet encryption and security?",
+      "answer": "Wallet security best practices:\n\n1. Encryption:\n- Use strong passphrase\n- Regular key rotation\n- Backup encrypted wallet\n- Store passphrase securely\n\n2. Access control:\n- Limit RPC access\n- Use SSL/TLS\n- Implement 2FA\n- Monitor access logs\n\n3. Backup strategy:\n- Multiple copies\n- Secure locations\n- Regular testing\n- Version control",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 56,
+      "question": "How do you configure Bitcoin Core for optimal performance in a low-bandwidth environment?",
+      "answer": "Low-bandwidth optimization:\n\n1. bitcoin.conf settings:\n- maxuploadtarget=50\n- maxconnections=12\n- blocksonly=1\n- dbcache=100\n\n2. Network settings:\n- No listening mode\n- Limited peers\n- Bandwidth throttling\n- Scheduled updates\n\n3. Resource management:\n- Reduced logging\n- Minimal indexing\n- Pruned mode\n- Memory constraints",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 57,
+      "question": "What are the steps to implement a custom fee estimation strategy using bitcoin-cli?",
+      "answer": "Custom fee estimation:\n\n1. Get fee estimates:\n   bitcoin-cli estimatesmartfee 6\n\n2. Analyze mempool:\n   bitcoin-cli getmempoolinfo\n\n3. Track confirmation times:\n   bitcoin-cli gettxoutsetinfo\n\n4. Calculate optimal fees:\n   Based on priority and congestion",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 58,
+      "question": "How do you handle database corruption in Bitcoin Core?",
+      "answer": "Database corruption handling:\n\n1. Diagnostic steps:\n- Check debug.log\n- Verify permissions\n- Test disk health\n- Backup corrupted data\n\n2. Recovery options:\n- Reindex blockchain\n- Restore from backup\n- Rebuild indexes\n- Chainstate recovery\n\n3. Prevention:\n- Regular backups\n- Filesystem checks\n- Monitor disk space\n- Clean shutdowns",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 59,
+      "question": "What are the considerations when implementing a Bitcoin Core node monitoring system?",
+      "answer": "Node monitoring implementation:\n\n1. Metrics to track:\n- Block height\n- Peer connections\n- Memory usage\n- Network traffic\n\n2. Monitoring tools:\n- Prometheus\n- Grafana\n- Custom scripts\n- Alert systems\n\n3. Alert thresholds:\n- Resource limits\n- Network issues\n- Sync status\n- Error conditions",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 60,
+      "question": "How do you implement a multi-wallet setup in Bitcoin Core?",
+      "answer": "Multi-wallet implementation:\n\n1. Create wallets:\n   bitcoin-cli createwallet \"wallet1\"\n   bitcoin-cli createwallet \"wallet2\"\n\n2. Load wallets:\n   bitcoin-cli loadwallet \"wallet1\"\n   bitcoin-cli loadwallet \"wallet2\"\n\n3. Manage transactions:\n   Use -rpcwallet parameter\n\n4. Backup strategy:\n- Individual backups\n- Separate encryption\n- Independent recovery",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 61,
+      "question": "What are the steps to implement a transaction batch processing system using bitcoin-cli?",
+      "answer": "Batch processing implementation:\n\n1. Create transactions:\n   bitcoin-cli createrawtransaction\n\n2. Sign batch:\n   bitcoin-cli signrawtransactionwithwallet\n\n3. Broadcast:\n   bitcoin-cli sendrawtransaction\n\n4. Monitor confirmations:\n   bitcoin-cli gettransaction",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 62,
+      "question": "How do you configure Bitcoin Core for operation behind a proxy or VPN?",
+      "answer": "Proxy/VPN configuration:\n\n1. bitcoin.conf settings:\n- proxy=127.0.0.1:9050\n- onion=127.0.0.1:9050\n- listen=0\n- bind=local_vpn_ip\n\n2. Network setup:\n- Port forwarding\n- DNS configuration\n- Protocol settings\n- Firewall rules\n\n3. Security measures:\n- Leak prevention\n- Connection monitoring\n- Failsafe options\n- Backup connectivity",
+      "category": "configuration",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 63,
+      "question": "How do you implement a robust error handling system for Bitcoin Core RPC calls?",
+      "answer": "Implementing robust RPC error handling:\n\n1. Common Error Types:\n\nA. Network Errors:\n- Connection timeouts\n- Network unreachable\n- DNS resolution failures\n\nB. RPC Errors:\n- Invalid credentials\n- Method not found\n- Invalid parameters\n- Server overloaded\n\n2. Implementation Strategy:\n\nA. Error Catching:\n```python\ntry:\n    response = bitcoin_rpc.call('getblock', [block_hash])\nexcept BitcoinRPCError as e:\n    if e.code == -5:\n        # Block not found\n        handle_missing_block()\n    elif e.code == -28:\n        # Node still syncing\n        handle_sync_in_progress()\n    else:\n        # Unknown error\n        log_error_and_notify(e)\n```\n\nB. Retry Logic:\n- Exponential backoff\n- Maximum retry limits\n- Error categorization\n- Circuit breaker pattern\n\n3. Monitoring and Logging:\n\nA. Log Elements:\n- Error codes\n- Timestamps\n- Call parameters\n- Stack traces\n\nB. Alert System:\n- Critical error notifications\n- Performance degradation\n- System status updates",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 64,
+      "question": "What are the best practices for managing Bitcoin Core's memory pool in a production environment?",
+      "answer": "Memory pool management best practices:\n\n1. Configuration settings:\n- maxmempool=300\n- mempoolexpiry=72\n- limitfreerelay=0\n- minrelaytxfee=0.00001\n\n2. Monitoring:\n- Size tracking\n- Fee distributions\n- Transaction counts\n- Memory usage\n\n3. Maintenance:\n- Regular cleanup\n- Fee threshold adjustments\n- Resource allocation\n- Performance optimization",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 65,
+      "question": "How do you implement a reliable blockchain synchronization monitoring system?",
+      "answer": "Sync monitoring implementation:\n\n1. Key Metrics:\n\nA. Progress Tracking:\n- Block height\n- Download speed\n- Verification rate\n- Peer connections\n\nB. Resource Usage:\n- Disk I/O\n- Memory usage\n- CPU utilization\n- Network bandwidth\n\n2. Monitoring Tools:\n\nA. RPC Commands:\n```bash\nbitcoin-cli getblockchaininfo\nbitcoin-cli getnetworkinfo\nbitcoin-cli getmempoolinfo\n```\n\nB. System Integration:\n- Prometheus metrics\n- Custom logging\n- Alert systems\n- Dashboard creation\n\n3. Alert Conditions:\n- Sync stalled\n- Resource exhaustion\n- Network issues\n- Version mismatches",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 66,
+      "question": "What's the process for implementing a custom transaction filtering system using Bitcoin Core?",
+      "answer": "Custom transaction filtering:\n\n1. RPC methods:\n- gettxout\n- getrawtransaction\n- decoderawtransaction\n\n2. Filter criteria:\n- Amount thresholds\n- Address patterns\n- Script types\n- Fee rates\n\n3. Implementation:\n- Parse transactions\n- Apply filters\n- Log matches\n- Generate reports",
+      "category": "bitcoin_cli",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 67,
+      "question": "How do you configure Bitcoin Core for optimal performance on a high-performance dedicated server?",
+      "answer": "High-performance configuration:\n\n1. Hardware Optimization:\n- RAID configuration\n- CPU affinity\n- Memory allocation\n- Network tuning\n\n2. Bitcoin.conf:\n```\ndbcache=16384\nmaxmempool=2000\nmaxconnections=125\nrpcthreads=16\npar=16\nprune=0\n```\n\n3. System settings:\n- File descriptors\n- TCP parameters\n- I/O scheduling\n- Process priorities",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 68,
+      "question": "What are the steps to implement a custom blockchain indexing system?",
+      "answer": "Custom indexing implementation:\n\n1. Data Collection:\n- Block parsing\n- Transaction indexing\n- Address tracking\n- UTXO management\n\n2. Storage Strategy:\n- Database selection\n- Schema design\n- Index optimization\n- Backup procedures\n\n3. Access Methods:\n- Query optimization\n- API development\n- Caching system\n- Update mechanisms",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 69,
+      "question": "How do you properly set up and maintain a Bitcoin Core testnet environment?",
+      "answer": "Testnet environment setup:\n\n1. Configuration:\n```\ntestnet=1\n[test]\nrpcport=18332\nport=18333\nrpcuser=testuser\nrpcpassword=testpass\n```\n\n2. Management:\n- Regular resets\n- Data cleanup\n- Peer management\n- Resource allocation\n\n3. Testing:\n- Transaction creation\n- Block generation\n- Network simulation\n- Error scenarios",
+      "category": "testnet",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 70,
+      "question": "What are the key considerations when implementing a hot wallet backup system?",
+      "answer": "Hot wallet backup system:\n\n1. Backup Components:\n- Wallet files\n- Transaction history\n- Address book\n- Configuration data\n\n2. Security Measures:\n- Encryption\n- Access control\n- Transfer protection\n- Version control\n\n3. Automation:\n- Scheduled backups\n- Integrity checks\n- Rotation policy\n- Alert system",
+      "category": "bitcoin_node",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": 71,
+      "question": "How do you implement a system to monitor and analyze network peer quality?",
+      "answer": "Peer quality monitoring:\n\n1. Metrics:\n- Response time\n- Bandwidth usage\n- Block relay\n- Version compatibility\n\n2. Analysis:\n- Connection duration\n- Service reliability\n- Geographic distribution\n- Protocol compliance\n\n3. Management:\n- Peer scoring\n- Ban management\n- Connection priority\n- Resource allocation",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 72,
+      "question": "What's the process for implementing a custom fee estimation algorithm?",
+      "answer": "Fee estimation implementation:\n\n1. Data Collection:\n- Historical fees\n- Confirmation times\n- Mempool state\n- Network conditions\n\n2. Algorithm Components:\n- Time windows\n- Success rates\n- Priority levels\n- Dynamic adjustment\n\n3. Integration:\n- RPC interface\n- Update frequency\n- Error handling\n- Performance monitoring",
+      "category": "bitcoin_cli",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 73,
+      "question": "How do you properly configure Bitcoin Core for a multi-region setup?",
+      "answer": "Multi-region configuration:\n\n1. Network Setup:\n- DNS configuration\n- Load balancing\n- Failover setup\n- Connection management\n\n2. Per-Region Settings:\n```\n[region1]\nbind=10.0.1.1\nrpcbind=10.0.1.1\nrpcallowip=10.0.1.0/24\n\n[region2]\nbind=10.0.2.1\nrpcbind=10.0.2.1\nrpcallowip=10.0.2.0/24\n```\n\n3. Synchronization:\n- Data consistency\n- Block propagation\n- Peer management\n- Latency optimization",
+      "category": "configuration",
+      "difficulty": "advanced"
+    },
+    {
+      "id": 74,
+      "question": "What are the best practices for maintaining Bitcoin Core in a high-availability environment?",
+      "answer": "High-availability maintenance:\n\n1. Architecture:\n- Redundant nodes\n- Load balancing\n- Failover systems\n- Monitoring setup\n\n2. Operational Procedures:\n- Update strategy\n- Backup management\n- Incident response\n- Performance tuning\n\n3. Documentation:\n- Configuration details\n- Recovery procedures\n- Contact information\n- Change logs\n\n4. Testing:\n- Failover drills\n- Backup verification\n- Performance testing\n- Security audits",
+      "category": "bitcoin_node",
+      "difficulty": "advanced"
+    }
+  ]
+}
