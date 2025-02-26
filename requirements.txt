@@ -4,9 +4,6 @@ pandas
 scikit-learn
 matplotlib
 seaborn
-jupyter
-notebook
-ipykernel
 tqdm
 nltk
 rouge-score
