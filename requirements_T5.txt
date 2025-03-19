@@ -1,9 +1,9 @@
 numpy
 pandas
-tensorflow>=2.19.0
-tf_keras>=2.19.0
+tensorflow
+tf_keras
 matplotlib
 nltk
-tensorflow-text>=2.19.0
+tensorflow-text
 transformers>=4.49.0
 rouge-score
