@@ -4,6 +4,6 @@ tensorflow>=2.19.0
 tf_keras>=2.19.0
 matplotlib
 nltk
-tensorflow-text
+tensorflow-text>=2.19.0
 transformers>=4.49.0
 rouge-score
