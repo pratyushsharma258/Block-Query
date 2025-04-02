@@ -1,0 +1,9 @@
+numpy
+pandas
+tensorflow
+tf_keras
+matplotlib
+nltk
+tensorflow-text
+transformers>=4.49.0
+rouge-score
