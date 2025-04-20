@@ -22,7 +22,7 @@ Each model is implemented in its own Jupyter notebook ([BART.ipynb](BART.ipynb),
 
 ## 📊 Dataset
 
-The system is trained on a comprehensive blockchain dataset containing AI generated Q&A pairs covering:
+The system is trained on a comprehensive blockchain dataset containing AI generated Q&A pairs (by Claude 3.7 Sonnet) which was later human verified for facts covering:
 
 - Ethereum network setup and management
 - Smart contract development
@@ -60,9 +60,70 @@ pip install -r requirements_<MODEL>.txt
 
 The implemented models have been trained on blockchain-specific data with the following hyperparameters:
 
-- Max source length: 50
-- Max target length: 200
-- Learning rate: 1e-4
+- **LSTM**:
+
+  - Max source length: 50
+  - Max target length: 200
+  - Batch size: 128
+  - Learning rate : 1e-4
+  - Dataset: ch(1-8).json augemented 10x
+  - Total epochs: 100
+  - BLEU_1: 0.4214
+  - BLEU_2: 0.4010
+  - BLEU_3: 0.3883
+  - ROUGE1: 0.6587
+  - ROUGE2: 0.6040
+  - ROUGEL: 0.6434
+
+- **In general for transformers**:
+
+  - Max source length: 50
+  - Max target length: 200
+  - Learning rate: 1e-4
+  - Dataset : ch(1-19).json augmented 3x as [df_augmented.csv](dataset/df_augmented.csv)
+
+- **BART**:
+
+  - Batch size: 8
+  - Total epochs: 15
+  - BLEU-1: 0.6319
+  - BLEU-2: 0.5998
+  - BLEU-3: 0.5807
+  - ROUGE-1: 0.7420
+  - ROUGE-2: 0.6626
+  - ROUGE-L: 0.6955
+
+- **Pegasus**:
+
+  - Batch size: 8
+  - Total epochs: 8
+  - BLEU-1: 0.4074
+  - BLEU-2: 0.3439
+  - BLEU-3: 0.3136
+  - ROUGE-1: 0.5372
+  - ROUGE-2: 0.3743
+  - ROUGE-L: 0.4316
+
+- **T5**:
+
+  - Batch size: 8
+  - Total epochs: 45
+  - BLEU-1: 0.4295
+  - BLEU-2: 0.3931
+  - BLEU-3: 0.3720
+  - ROUGE-1: 0.6026
+  - ROUGE-2: 0.5051
+  - ROUGE-L: 0.5463
+
+- **Flan -T5**:
+  - Batch size: 8
+  - Total epochs: 29
+  - BLEU-1: 0.4011
+  - BLEU-2: 0.3558
+  - BLEU-3: 0.3317
+  - ROUGE-1: 0.5668
+  - ROUGE-2: 0.4449
+  - ROUGE-L: 0.4904
 
 Performance is evaluated using various scores to measure the quality of generated answers against expert-provided references.
 
